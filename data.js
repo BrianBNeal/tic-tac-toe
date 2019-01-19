@@ -1,12 +1,12 @@
 const winConditions = [
-    ["square0", "square1", "square2"],
-    ["square3", "square4", "square5"],
-    ["square6", "square7", "square8"],
-    ["square0", "square3", "square6"],
-    ["square1", "square4", "square7"],
-    ["square2", "square5", "square8"],
-    ["square0", "square4", "square8"],
-    ["square2", "square4", "square6"],
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
 ]
 
 let xSquares = []
