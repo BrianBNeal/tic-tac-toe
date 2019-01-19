@@ -1,0 +1,66 @@
+/* Create a 3x3 grid using display:grid to form
+a tic tac toe board */
+
+article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#grid__container {
+    display: grid;
+    height: 500px;
+    width: 500px;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 33% 33% 33%;
+}
+
+.left {
+    border-right: 3px solid black;
+    grid-column-start: 1;
+}
+
+.center {
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+    grid-column-start: 2;
+}
+
+.right {
+    border-left: 3px solid black;
+    grid-column-start: 3;
+}
+
+.top {
+    border-bottom: 3px solid black;
+    grid-row-start: 1;
+}
+
+.mid {
+    border-bottom: 3px solid black;
+    border-top: 3px solid black;
+    grid-row-start: 2;
+}
+
+.bottom {
+    border-top: 3px solid black;
+    grid-row-start: 3;
+}
+
+.square{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p {
+    font-size: 10em;
+}
+
+.o {
+    color: blue;
+}
+
+.x {
+    color: red;
+}
