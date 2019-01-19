@@ -1,5 +1,6 @@
-/* Create a 3x3 grid using display:grid to form
-a tic tac toe board */
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
 
 article {
     display: flex;
@@ -7,6 +8,16 @@ article {
     align-items: center;
 }
 
+header {
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 50px;;
+}
+/* Create a 3x3 grid using display:grid to form
+a tic tac toe board */
 #grid__container {
     display: grid;
     height: 500px;
@@ -15,42 +26,59 @@ article {
     grid-template-rows: 33% 33% 33%;
 }
 
-.left {
-    border-right: 3px solid black;
-    grid-column-start: 1;
-}
-
-.center {
-    border-left: 3px solid black;
-    border-right: 3px solid black;
-    grid-column-start: 2;
-}
-
-.right {
-    border-left: 3px solid black;
-    grid-column-start: 3;
-}
-
-.top {
-    border-bottom: 3px solid black;
-    grid-row-start: 1;
-}
-
-.mid {
-    border-bottom: 3px solid black;
-    border-top: 3px solid black;
-    grid-row-start: 2;
-}
-
-.bottom {
-    border-top: 3px solid black;
-    grid-row-start: 3;
-}
-
+/* Place each square within the grid, displaying a border on the appropriate side*/
 .square{
     display: flex;
     justify-content: center;
     align-items: center;
+    border-color: black;
+    border-style: solid;
+}
+
+#square0 {
+    grid-area:1/1;
+    border-width: 0 2px 2px 0;
+}
+
+#square1 {
+    grid-area:1/2;
+    border-width: 0 2px 2px 2px;
+
+}
+
+#square2 {
+    grid-area:1/3;
+    border-width: 0 0 2px 2px;
+}
+
+#square3 {
+    grid-area:2/1;
+    border-width: 2px 2px 2px 0;
+}
+
+#square4 {
+    grid-area:2/2;
+    border-width: 2px;
+}
+
+#square5 {
+    grid-area:2/3;
+    border-width: 2px 0 2px 2px;
+}
+
+#square6 {
+    grid-area:3/1;
+    border-width: 2px 2px 0 0;
+}
+
+#square7 {
+    grid-area:3/2;
+    border-width: 2px 2px 0 2px;
+}
+
+#square8 {
+    grid-area:3/3;
+    border-width: 2px 0 0 2px;
 }
 
 p {

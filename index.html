@@ -1,5 +1,6 @@
-<!doctype html> 
+<!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Tic Tac Toe</title>
@@ -10,24 +11,20 @@
 <body>
   <nav></nav>
 
-  <header></header>
+  <header>
+    <h2 class="turn__display"></h2>
+    <h1>Let's Play Tic-Tac-Toe!</h1>
+    <h2 class="score__display"></h2>
+  </header>
 
   <article id="main__container">
-    <div id="grid__container">
-      <div id="top__left" class="square left top"></div>
-      <div id="top__center" class="square center top"></div>
-      <div id="top__right" class="square right top"></div>
-      <div id="mid__left" class="square left mid"></div>
-      <div id="mid__center" class="square center mid"></div>
-      <div id="mid__right" class="square right mid"></div>
-      <div id="bottom__left" class="square left bottom"></div>
-      <div id="bottom__center" class="square center bottom"></div>
-      <div id="bottom__right" class="square right bottom"></div>
-    </div>
+    <div id="grid__container"></div>
   </article>
 
   <footer></footer>
 
+  <script src="./data.js"></script>
   <script src="./main.js"></script>
 </body>
+
 </html>
