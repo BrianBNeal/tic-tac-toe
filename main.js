@@ -19,7 +19,6 @@ let gameWinner = ""
 
 //Ask for player names ==============================================================
 const namePlayers = () => {
-    nameFieldOne = `<input name="playerOne" type="text" id="nameFieldOne">`
     let askForFirstPlayer = prompt("First Player's Name:", "Player One")
     let askForSecondPlayer = prompt("Second Player's Name:", "Player Two")
     if ((askForFirstPlayer === (null || "")) || (askForSecondPlayer === (null || ""))) {
@@ -69,7 +68,9 @@ const showScore = () => {
 //Assign letters to each player ====================================================
 const promptForLetter = () => {
     let assignLetters = prompt(`${playerOne.name}, do you want to be X or O? (X will go first)`)
-    if (assignLetters.toUpperCase() === "X") {
+    if (assignLetters === null) {
+        promptForLetter()
+    } else if (assignLetters.toUpperCase() === "X") {
         playerOne.letter = "X"
         xPlayer = playerOne
         playerTwo.letter = "O"
