@@ -9,5 +9,16 @@ const winConditions = [
     [2, 4, 6]
 ]
 
-let xSquares = []
-let oSquares = []
+const playerOne = {
+    name: "",
+    moves: [],
+    letter: "",
+    score: 0
+}
+
+const playerTwo = {
+    name: "",
+    moves: [],
+    letter: "",
+    score: 0
+}

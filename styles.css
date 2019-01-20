@@ -9,13 +9,18 @@ article {
 }
 
 header {
-    max-width: 600px;
+    width: auto;
     margin: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: baseline;
     margin-bottom: 50px;;
 }
+
+h2 {
+    margin: 0 50px 0 50px;
+}
+
 /* Create a 3x3 grid using display:grid to form
 a tic tac toe board */
 #grid__container {
