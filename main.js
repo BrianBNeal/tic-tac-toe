@@ -1,71 +1,84 @@
-// #1 and #2 are repeated until a row of 3 of the same character is created
-/* Array of all win conditions. Array of all O moves.  Array of all X moves.  Loop at end of each turn to compare moves with win conditions.  Length of X moves array is 5 and there is no win, then it's a draw. */
-
-// When a win happens:
-// Alert the players who won
-// Disallow any further clicks on the game board
-// Display a Play Again button that resets the game
-// For a tie:
-// Alert players that game has ended in a tie
-// Display a Play Again button that resets the game
-
 let turnCounter = 0
+let whoseTurnIsIt = ""
 let xScore = 0
 let oScore = 0
+const headline = document.querySelector("h1")
+let gameOver = false
+
 //declare function to generate the game board
 const createGame = () => {
-    //Begins turnCounter at 1 each time a new game is created
-    turnCounter = 1
-
-    //define where the play area, turn, and score are each displayed
-    const playArea = document.querySelector("#grid__container")
     
-    //show score and turn number
+    //reset turnCounter and headline, show the score and turn number at top
+    turnCounter = 1
+    headline.textContent = "Let's play Tic-Tac-Toe!"
+    headline.classList = ""
     showScore()
     showTurn()
+    
     //Loop to create 9 squares for gameboard
+    const playArea = document.querySelector("#grid__container")
     for (let i = 0; i < 9; i++) {
         playArea.innerHTML += `<div id="square${i}" class="square"></div>`
     }
 }
 
+//function that updates the turn at top of screen
 const showTurn = () => {
-    let turnDisplay = document.querySelector("#turn__display")
+    const turnDisplay = document.querySelector("#turn__display")
     turnDisplay.textContent = `Turn ${turnCounter}`
 }
 
+//function that updates the score at top of screen
 const showScore = () => {
-    let scoreDisplay = document.querySelector("#score__display")
+    const scoreDisplay = document.querySelector("#score__display")
     scoreDisplay.innerHTML = `Score: ${xScore} - ${oScore}`
 }
 
-
+//function that checks to see if anyone won
 const checkForWin = () => {
-    let whoWon = null
+    let gameResult = null
     oSquares.sort()
     xSquares.sort()
     for (const condition of winConditions) {
-        if (condition.join() === oSquares.join()) {
-            whoWon = "O Wins!"
+        if (oSquares.join().includes(condition.join())) {
+            gameResult = "O Wins!"
+            gameOver = true
             oScore += 1
-        } else if (condition.join() === xSquares.join()) {
-            whoWon = "X wins!";
+        } else if (xSquares.join().includes(condition.join())) {
+            gameResult = "X wins!";
+            gameOver = true
             xScore += 1
-        } else if (turnCounter === 9 && whoWon === null) {
-            whoWon = "It was tie!"
+        } else if (turnCounter > 9) {
+            gameResult = "It was tie!"
+            gameOver = true
+            turnCounter = 9 /* so that the turn counter will show the last turn number */
+            showTurn()
         }
     }
-    if (whoWon !== null) {
-    window.alert(whoWon)
+    if (gameOver === true) {
+        headline.textContent = gameResult
+        playAgain()
+        showScore()
     }
 }
 
-//generate the game board
+const pushChoice = (idx) => {
+    if (whoseTurnIsIt === "X") {
+        xSquares.push(idx)
+    } else if (whoseTurnIsIt === "O") {
+        oSquares.push(idx)
+    }
+}
+
+//displays play again button in headline
+const playAgain = () => {
+    const playAgainButton = document.createElement("button")
+}
+
 createGame();
 
 // Create reference to the game squares
 let allSquares = document.getElementsByClassName("square")
-
 
 // Add a click event listener to each square
 for (let i = 0; i < allSquares.length; i++) {
@@ -73,25 +86,23 @@ for (let i = 0; i < allSquares.length; i++) {
     square.addEventListener(
         "click",
         (event) => {
-            
-    
-            //even turns are player O, and square must be empty
-            if (turnCounter % 2 === 0 && square.innerHTML === "") {
-                //add letter to the square
-                square.innerHTML = `<p class="o">O</p>`
-                //add move to collection of moves
-                oSquares.push(i)
-                //increment to next turn
-                turnCounter += 1
-                showTurn()
-                checkForWin()
-    
-            //odd turns are player X    
-            } else if (turnCounter < 10 && square.innerHTML === "") {
-                square.innerHTML = `<p class="x">X</p>`
-                turnCounter += 1
-                showTurn()
-                checkForWin()
+
+            if (gameOver === false) {
+                //odd turns are X, even turns are O
+                if (turnCounter % 2 === 0) {
+                    whoseTurnIsIt = "O"
+                } else {
+                    whoseTurnIsIt = "X"
+                }
+
+                //a square can only be targeted if it's empty, game end detected after 9 turns
+                if (square.innerHTML === "") {
+                    square.innerHTML = `<p class=${whoseTurnIsIt}>${whoseTurnIsIt}</p>`
+                    turnCounter += 1
+                    pushChoice(i)
+                    showTurn()
+                    checkForWin()
+                }
             }
         }
     )
