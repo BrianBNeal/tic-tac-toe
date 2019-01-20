@@ -14,12 +14,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: baseline;
-    margin-bottom: 50px;;
-}
-
-h2 {
-    margin: 0 50px 0 50px;
-}
+}   
 
 /* Create a 3x3 grid using display:grid to form
 a tic tac toe board */
@@ -29,6 +24,7 @@ a tic tac toe board */
     width: 500px;
     grid-template-columns: 33% 33% 33%;
     grid-template-rows: 33% 33% 33%;
+    margin: 40px 0 40px 0;
 }
 
 /* Place each square within the grid, displaying a border on the appropriate side*/
@@ -91,9 +87,23 @@ p {
 }
 
 .O {
-    color: blue;
+    color: #4286F4;
 }
 
 .X {
-    color: red;
+    color: #F22929;
+}
+
+#main__container {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    height: 40px;
+}
+
+.bold {
+font-size: 150%;
+font-weight: bold;
 }

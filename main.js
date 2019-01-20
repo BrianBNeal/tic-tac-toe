@@ -1,11 +1,12 @@
 /* VARIABLES ======================================================================
 =================================================================================== */
 
-let turnCounter = 0
-const headline = document.querySelector("h1")
-let gameOver = false
 const playerOne = players[0]
 const playerTwo = players[1]
+const headline = document.querySelector("h1")
+const turnDisplay = document.querySelector("#turn__display")
+let turnCounter = 0
+let gameOver = false
 let whoseTurnIsIt = ""
 let xPlayer = ""
 let oPlayer = ""
@@ -20,13 +21,19 @@ let gameWinner = ""
 const namePlayers = () => {
     let askForFirstPlayer = prompt("First Player's Name:", "Player One")
     let askForSecondPlayer = prompt("Second Player's Name:", "Player Two")
-    playerOne.name = askForFirstPlayer
-    playerTwo.name = askForSecondPlayer
+    if ((askForFirstPlayer === (null || "")) || (askForSecondPlayer === (null || ""))) {
+        window.alert("Please enter a name for both players")
+        namePlayers()
+    } else {
+        playerOne.name = askForFirstPlayer
+        playerTwo.name = askForSecondPlayer
+    }
 }
 
 //Function to generate the game board ===============================================
 const createGame = () => {
 
+    headline.textContent = "Let's Play Tic-Tac-Toe!"
     makeGrid()
     promptForLetter()
     showScore()
@@ -46,7 +53,16 @@ const makeGrid = () => {
 //Updates the score at top of screen ===============================================
 const showScore = () => {
     const scoreDisplay = document.querySelector("#score__display")
-    scoreDisplay.innerHTML = `${playerOne.name}: ${playerOne.score} - ${playerTwo.name}: ${playerTwo.score}`
+    scoreDisplay.innerHTML = `<span class="player__one">${playerOne.name}: ${playerOne.score}</span>   -   <span class="player__two">${playerTwo.name}: ${playerTwo.score}</span>`
+
+    //reference the spans wrapping each player's score and make it bold if they are winning
+    const firstScore = document.querySelector(".player__one")
+    const secondScore = document.querySelector(".player__two")
+    if (playerOne.score > playerTwo.score) {
+        firstScore.classList.add("bold")
+    } else if (playerTwo.score > playerOne.score) {
+        secondScore.classList.add("bold")
+    }
 }
 
 //Assign letters to each player ====================================================
@@ -70,8 +86,7 @@ const promptForLetter = () => {
 
 //Updates the turn at top of screen ===============================================
 const showTurn = () => {
-    const turnDisplay = document.querySelector("#turn__display")
-    turnDisplay.textContent = `${whoseTurnIsIt.name}'s Turn`
+    turnDisplay.innerHTML = `<h2>${whoseTurnIsIt.name}'s Turn</h2>`
     turnDisplay.classList = `${whoseTurnIsIt.letter}`
 }
 
@@ -119,16 +134,19 @@ const checkForWin = () => {
             gameWinner = null
             gameOver = true
             gameOverAnnouncement()
-        } 
+        }
     }
 }
 
 // Changes score and announces winner ================================================
 const gameOverAnnouncement = () => {
     if (gameWinner === null) {
+        turnDisplay.textContent = ""
         headline.textContent = "It was a tie!"
     } else {
         headline.textContent = `${gameWinner.name} won!`
+        headline.classList = `${gameWinner.letter.toUpperCase()}`
+        turnDisplay.textContent = ""
         gameWinner.score += 1
         showScore()
     }
@@ -137,9 +155,8 @@ const gameOverAnnouncement = () => {
 
 //displays play again button in headline ==================================================
 const playAgain = () => {
-    const playAgainButton = document.createElement("button")
-    playAgainButton.textContent = "Play Again"
-    headline.appendChild(playAgainButton)
+    turnDisplay.innerHTML = `<button>Play Again</button>`
+    const playAgainButton = document.querySelector("button")
 
     //if they click, it will restart the game
     playAgainButton.addEventListener(
@@ -153,6 +170,7 @@ const playAgain = () => {
 
 // resets variables so a new game will progress correctly =================
 const refresh = () => {
+
     const clearGrid = document.querySelector("#grid__container")
     clearGrid.innerHTML = ""
     xPlayer.moves = []
@@ -161,6 +179,8 @@ const refresh = () => {
     gameOver = false
     headline.textContent = "Let's play Tic-Tac-Toe!"
     headline.classList = ""
+    putBtnHere.innerHTML = ""
+
 }
 
 
