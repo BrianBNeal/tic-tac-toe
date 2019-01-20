@@ -19,6 +19,7 @@ let gameWinner = ""
 
 //Ask for player names ==============================================================
 const namePlayers = () => {
+    nameFieldOne = `<input name="playerOne" type="text" id="nameFieldOne">`
     let askForFirstPlayer = prompt("First Player's Name:", "Player One")
     let askForSecondPlayer = prompt("Second Player's Name:", "Player Two")
     if ((askForFirstPlayer === (null || "")) || (askForSecondPlayer === (null || ""))) {
@@ -67,7 +68,7 @@ const showScore = () => {
 
 //Assign letters to each player ====================================================
 const promptForLetter = () => {
-    let assignLetters = prompt(`${playerOne.name}, do you want to be X or O?`)
+    let assignLetters = prompt(`${playerOne.name}, do you want to be X or O? (X will go first)`)
     if (assignLetters.toUpperCase() === "X") {
         playerOne.letter = "X"
         xPlayer = playerOne
@@ -86,8 +87,10 @@ const promptForLetter = () => {
 
 //Updates the turn at top of screen ===============================================
 const showTurn = () => {
-    turnDisplay.innerHTML = `<h2>${whoseTurnIsIt.name}'s Turn</h2>`
-    turnDisplay.classList = `${whoseTurnIsIt.letter}`
+    if (gameOver === false) {
+        turnDisplay.innerHTML = `<h2>${whoseTurnIsIt.name}'s Turn</h2>`
+        turnDisplay.classList = `${whoseTurnIsIt.letter}`
+    }
 }
 
 // Take turns adding letters to the game board ========================================
@@ -126,10 +129,12 @@ const checkForWin = () => {
     /* Loop through win conditions looking to see if anyone has a win */
     for (let i = 0; i < winConditions.length; i++) {
         let win = winConditions[i]
+        //check to see if the current turn produced a win condition
         if (whoseTurnIsIt.moves.includes(win[0]) && whoseTurnIsIt.moves.includes(win[1]) && whoseTurnIsIt.moves.includes(win[2])) {
             gameWinner = whoseTurnIsIt
             gameOver = true
             gameOverAnnouncement()
+        //no win conditions are 9 turns means a tie
         } else if (turnCounter > 9) {
             gameWinner = null
             gameOver = true
@@ -140,13 +145,14 @@ const checkForWin = () => {
 
 // Changes score and announces winner ================================================
 const gameOverAnnouncement = () => {
+    // gameWinner is made null in checkForWin if no win conditions are met after 9 turns
     if (gameWinner === null) {
         turnDisplay.textContent = ""
         headline.textContent = "It was a tie!"
     } else {
         headline.textContent = `${gameWinner.name} won!`
         headline.classList = `${gameWinner.letter.toUpperCase()}`
-        turnDisplay.textContent = ""
+        turnDisplay.innerHTML = ""
         gameWinner.score += 1
         showScore()
     }
@@ -179,7 +185,7 @@ const refresh = () => {
     gameOver = false
     headline.textContent = "Let's play Tic-Tac-Toe!"
     headline.classList = ""
-    putBtnHere.innerHTML = ""
+    turnDisplay.innerHTML = ""
 
 }
 
