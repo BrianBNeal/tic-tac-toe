@@ -9,16 +9,17 @@ const winConditions = [
     [2, 4, 6]
 ]
 
-const playerOne = {
-    name: "",
-    moves: [],
-    letter: "",
-    score: 0
-}
-
-const playerTwo = {
-    name: "",
-    moves: [],
-    letter: "",
-    score: 0
-}
+const players = [
+    {
+        name: "",
+        moves: [],
+        letter: "",
+        score: 0,
+    },
+    {
+        name: "",
+        moves: [],
+        letter: "",
+        score: 0,
+    }
+]
