@@ -135,8 +135,8 @@ const checkForWin = () => {
             gameWinner = whoseTurnIsIt
             gameOver = true
             gameOverAnnouncement()
-        //no win conditions are 9 turns means a tie
-        } else if (turnCounter > 9) {
+        //no win conditions in 9 turns means a tie
+        } else if (turnCounter === 9) {
             gameWinner = null
             gameOver = true
             gameOverAnnouncement()
